@@ -1,6 +1,6 @@
 {
   "author": {
-    "name": "Muhammed ALMAZ"
+    "name": "Agoras Inc."
   },
   "bugs": {
     "url": "https://github.com/timespace-content-market/React-Native-INTL-Phone-Input/issues"
@@ -40,5 +40,5 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "1.2.13"
+  "version": "1.2.14"
 }
