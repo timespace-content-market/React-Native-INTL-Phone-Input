@@ -6,7 +6,6 @@ import {
   FlatList,
   StyleSheet,
   SafeAreaView,
-  TouchableWithoutFeedback,
   TouchableOpacity,
   TextInput,
 } from "react-native";
@@ -86,7 +85,9 @@ export default class IntlPhoneInput extends React.Component {
   onChangeCountry = () => {
     const dialCode = this.state.dialCode;
     // return this.state.selectedCountry
-    return this.props.onChangeCountry(dialCode);
+    if (this.props.onChangeCountry) {
+      return this.props.onChangeCountry({ dialCode });
+    }
   }
 
   onCountryChange = async (code) => {
