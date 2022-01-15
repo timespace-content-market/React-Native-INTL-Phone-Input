@@ -83,6 +83,12 @@ export default class IntlPhoneInput extends React.Component {
 
   hideModal = () => this.setState({ modalVisible: false });
 
+  onChangeCountry = () => {
+    const dialCode = this.state.dialCode;
+    // return this.state.selectedCountry
+    return this.props.onChangeCountry(dialCode);
+  }
+
   onCountryChange = async (code) => {
     const countryData = await data;
     try {
@@ -95,6 +101,7 @@ export default class IntlPhoneInput extends React.Component {
         selectedCountry: country,
       });
       this.hideModal();
+      this.onChangeCountry();
     } catch (err) {
       const defaultCountry = this.state.defaultCountry;
       this.setState({
@@ -153,7 +160,6 @@ export default class IntlPhoneInput extends React.Component {
             <View style={styles.filterInputStyleContainer}>
               <TextInput
                 autoCapitalize="words"
-                autoFocus
                 onChangeText={this.filterCountries}
                 placeholder={filterText || "Filter"}
                 style={[styles.filterInputStyle, filterInputStyle]}
@@ -166,7 +172,7 @@ export default class IntlPhoneInput extends React.Component {
               data={this.state.countryData}
               keyExtractor={(_, index) => index.toString()}
               renderItem={({ item }) => (
-                <TouchableWithoutFeedback
+                <TouchableOpacity
                   onPress={() => this.onCountryChange(item.code)}
                 >
                   <View style={[styles.countryModalStyle, countryModalStyle]}>
@@ -190,7 +196,7 @@ export default class IntlPhoneInput extends React.Component {
                       >{`  ${item.dialCode}`}</Text>
                     </View>
                   </View>
-                </TouchableWithoutFeedback>
+                </TouchableOpacity>
               )}
             />
           </View>
@@ -261,6 +267,7 @@ IntlPhoneInput.propTypes = {
   defaultCountry: PropTypes.string,
   mask: PropTypes.string,
   onChangeText: PropTypes.func,
+  onChangeCountry: PropTypes.func,
   customModal: PropTypes.func,
   phoneInputStyle: PropTypes.object, // {}
   containerStyle: PropTypes.object, // {}
@@ -317,6 +324,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    zIndex: 10000,
   },
   openDialogView: {
     flexDirection: "row",
