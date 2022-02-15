@@ -85,6 +85,7 @@ export default class IntlPhoneInput extends React.Component {
   onChangeCountry = () => {
     const dialCode = this.state.dialCode;
     // return this.state.selectedCountry
+    this.setState(prev => ({ ...prev, countryData: data }));
     if (this.props.onChangeCountry) {
       return this.props.onChangeCountry({ dialCode });
     }
@@ -117,7 +118,7 @@ export default class IntlPhoneInput extends React.Component {
 
   filterCountries = (value) => {
     const { lang } = this.props;
-    const countryData = data.filter(
+    const countryData = data.slice().filter(
       (obj) =>
         obj.en.includes(value) || obj[lang?.toLowerCase() ?? "en"]?.indexOf(value) > -1 ||
         obj.dialCode.indexOf(value) > -1
