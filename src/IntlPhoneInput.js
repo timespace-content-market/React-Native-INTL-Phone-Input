@@ -119,7 +119,7 @@ export default class IntlPhoneInput extends React.Component {
     const { lang } = this.props;
     const countryData = data.filter(
       (obj) =>
-        obj[lang?.toLowerCase() ?? "en"]?.indexOf(value) > -1 ||
+        obj.en.includes(value) || obj[lang?.toLowerCase() ?? "en"]?.indexOf(value) > -1 ||
         obj.dialCode.indexOf(value) > -1
     );
     this.setState({ countryData });
@@ -187,7 +187,7 @@ export default class IntlPhoneInput extends React.Component {
                           modalCountryItemCountryNameStyle,
                         ]}
                       >
-                        {item[lang?.toLowerCase() ?? "en"]}
+                        {item[lang?.toLowerCase()] != null ? item[lang?.toLowerCase() ?? "en"] : item['en']}
                       </Text>
                       <Text
                         style={[
